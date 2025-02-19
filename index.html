@@ -175,7 +175,9 @@
 
     <script>
         function getTime() {
-            return new Date().toLocaleTimeString();
+            const time = new Date().toLocaleTimeString();
+            console.log("Current Time:", time);
+            return time;
         }
         console.log(new Date().toLocaleTimeString());
 
@@ -191,38 +193,50 @@
             "how old are you": "I'm timeless! 😎",
             "default": "I suggest you to copy the text which you've send above and paste it in ChatGPT inbox, I'm sure that it can give you a better answer.😊"
         };
-        console.log(responses);
+        console.log("Responses", responses);
 
         function sendMessage(text = null) {
             const input = document.getElementById("userInput");
             const message = text || input.value.trim();
-            if (!message) return;
+            console.log("User Input:", message);
+            // if (!message) return;
+            if (!message) {
+                console.log("No message entered. Exiting function.");
+                return;
+            }
 
             const chatBox = document.getElementById("chatBox");
 
-            // Add User Message
             chatBox.insertAdjacentHTML("beforeend", `
                 <div class="message user">
                     ${message} <span class="timestamp">${getTime()}</span>
                 </div>
             `);
+            console.log("User message added to chat:", message);
             input.value = "";
-            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Bot Reply after 1s
             setTimeout(() => {
+                const botReply = generateReply(message);
+                console.log("Bot Reply", botReply);
+
                 chatBox.insertAdjacentHTML("beforeend", `
-                    <div class="message bot">
-                         ${generateReply(message)} <span class="timestamp">${getTime()}</span>
-                    </div>
-                `);
+                <div class="message bot">
+                     ${botReply} <span class="timestamp">${getTime()}</span>
+                </div>
+            `);
+                console.log("Bot reply added to chat.");
+
                 chatBox.scrollTop = chatBox.scrollHeight;
             }, 1000);
         }
 
         function generateReply(msg) {
             msg = msg.toLowerCase().trim();
-            return responses[msg] || responses["default"];
+            console.log("User Message", msg);
+            const reply = responses[msg] || responses["default"];
+            console.log("Selected Reply", reply);
+            return reply;
         }  
     </script>
 
