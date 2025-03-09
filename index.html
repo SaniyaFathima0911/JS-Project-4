@@ -71,7 +71,7 @@
             font-size: 10px;
             position: absolute;
             bottom: -22px;
-            right: 14px;
+            right: 15px;
             color: black;
         }
 
@@ -158,10 +158,8 @@
         <h3 style="text-align: center;">ChatterAI 💬</h3>
         <div class="chat-box" id="chatBox"></div>
 
-        <!-- Suggested Questions -->
         <div class="suggestions">
             <button onclick="sendMessage('How are you')">How are you?</button>
-            <!-- <button onclick="sendMessage('What can you do')">What can you do?</button> -->
             <button onclick="sendMessage('Tell me a joke')">Tell me a joke</button>
             <button onclick="sendMessage('Tell me a fun fact')">Tell me a fun fact!</button>
             <button onclick="sendMessage('Who created you')">Who created you?</button>
@@ -199,7 +197,6 @@
             const input = document.getElementById("userInput");
             const message = text || input.value.trim();
             console.log("User Input:", message);
-            // if (!message) return;
             if (!message) {
                 console.log("No message entered. Exiting function.");
                 return;
@@ -211,7 +208,7 @@
                 <div class="message user">
                     ${message} <span class="timestamp">${getTime()}</span>
                 </div>
-            `);
+            `);                        
             console.log("User message added to chat:", message);
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
